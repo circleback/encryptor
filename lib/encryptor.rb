@@ -50,6 +50,7 @@ module Encryptor
       options = default_options.merge(:value => args.first).merge(args.last.is_a?(Hash) ? args.last : {})
       raise ArgumentError.new('must specify a :key') if options[:key].to_s.empty?
       cipher = OpenSSL::Cipher::Cipher.new(options[:algorithm])
+      cipher.padding = 0
       cipher.send(cipher_method)
       if options[:iv]
         cipher.iv = options[:iv]
